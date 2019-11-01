@@ -14,6 +14,10 @@ def readFile():
 
         print("Beatriz se encuentra {} veces en el cuento".format(counter))
 
+def appendFile():
+    with open("numeros.txt","a") as f:
+        f.write("Agregando frase final.")
+        pass
 
 if __name__ == '__main__':
-    readFile()
+    appendFile()
