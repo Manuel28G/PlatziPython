@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from test.contacts.contact import Contact
 from test.contacts.contact_book import ContactBook
+from test.contacts.contact import Contact
 
 
 def run():
@@ -24,16 +24,19 @@ def run():
             contact_book.add(Contact(name, phone, email))
 
         elif command == 'ac':
-            print('actualizar contacto')
+            name = str(raw_input('Cual usuario desea actualizar:'))
+            contact_book.update(name)
 
         elif command == 'b':
-            print('buscar contacto')
+            name = str(raw_input('Ingrese el nombre que desea buscar:'))
+            contact_book.search(name)
 
         elif command == 'e':
-            print('eliminar contacto')
+            name = str(raw_input('Escriba el nombre que desea eliminar: '))
+            contact_book.delete(name)
 
         elif command == 'l':
-            print('listar contactos')
+            contact_book.show_all()
 
         elif command == 's':
             break
