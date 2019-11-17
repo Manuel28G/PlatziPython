@@ -1,10 +1,17 @@
+import csv
+
+from test.contacts.contact import Contact
+
+
 class ContactBook:
 
     def __init__(self):
         self._contacts = []
+        self._read_contacts()
 
     def add(self, contact):
         self._contacts.append(contact)
+        self._save()
 
     def show_all(self):
         for contact in self._contacts:
@@ -24,6 +31,7 @@ class ContactBook:
         for idx, contact in enumerate(self._contacts):
             if contact.name.lower() == name.lower():
                 del self._contacts[idx]
+                self._save()
                 break
 
     def search(self, name):
@@ -32,6 +40,22 @@ class ContactBook:
                 self._print_contact(contact)
                 return
         self._not_found()
+
+    def _save(self):
+        with open('contacts.csv', 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow(('name', 'phone', 'email'))
+            for contact in self._contacts:
+                writer.writerow((contact.name, contact.phone, contact.email))
+
+    def _read_contacts(self):
+        with open('contacts.csv', 'r') as f:
+            reader = csv.reader(f)
+            for idx, row in enumerate(reader):
+                if idx == 0:
+                    continue
+                else:
+                    self.add(Contact(row[0], row[1], row[2]))
 
     def _get_response(self):
         print('-- * -- * -- * -- * -- * --')
